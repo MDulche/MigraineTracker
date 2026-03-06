@@ -47,7 +47,7 @@ namespace MigraineTracker.ViewModels
         private DateTime _startTime = DateTime.Now;
 
         [ObservableProperty]
-        private DateTime? _endTime;
+        private DateTime _endTime = DateTime.Now;
 
         [ObservableProperty]
         private int _intensity = 5;

@@ -3,4 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MigraineTracker.Views.NewMigraine"
              Title="Nouvelle Migraine">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="20">
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Date de début" />
+                <DatePicker Date="{Binding StartTime}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Date de fin" />
+                <DatePicker Date="{Binding EndTime}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Intensité" />
+                <Slider Minimum="1" Maximum="10" Value="{Binding Intensity}" />
+                <Label Text="{Binding Intensity, StringFormat='{0:F0}/10'}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Cause probable" />
+                <Editor Text="{Binding ProbableCause}" HeightRequest="100" />
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Symptômes avant" />
+                <Entry Text="{Binding SymptomsBefore}" />
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Symptômes pendant" />
+                <Entry Text="{Binding SymptomsDuring}" />
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Notes" />
+                <Editor Text="{Binding Notes}" HeightRequest="100" />
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Text="Annuler" Command="{Binding CancelCommand }" />
+                <Button Grid.Column="1" Text="Enregistrer" Command="{Binding SaveCommand }" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>

@@ -9,5 +9,6 @@ public partial class NewMigraine : ContentPage
     {
         InitializeComponent();
         BindingContext = vm;
+
     }
 }
