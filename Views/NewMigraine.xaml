@@ -2,45 +2,51 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MigraineTracker.Views.NewMigraine"
-             Title="Nouvelle Migraine">
+             Title="Nouvelle Migraine"
+             BackgroundColor="{StaticResource Background}">
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="20">
 
             <VerticalStackLayout Spacing="6">
-                <Label Text="Date de début" />
-                <DatePicker Date="{Binding StartTime}" />
+                <Label Text="Début" TextColor="{StaticResource TextPrimary}" />
+                <DatePicker Date="{Binding StartDate}" />
+                <TimePicker Time="{Binding StartTimeOfDay}" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="6">
-                <Label Text="Date de fin" />
-                <DatePicker Date="{Binding EndTime}" />
+                <HorizontalStackLayout>
+                    <CheckBox IsChecked="{Binding HasEndTime}"/>
+                    <Label Text="Fin" TextColor="{StaticResource TextPrimary}" />
+                </HorizontalStackLayout>
+                <DatePicker Date="{Binding EndDate}" IsVisible="{Binding HasEndTime}"/>
+                <TimePicker Time="{Binding EndTimeOfDay}" IsVisible="{Binding HasEndTime}"/>
             </VerticalStackLayout>
-
+            
             <VerticalStackLayout Spacing="6">
-                <Label Text="Intensité" />
+                <Label Text="Intensité" TextColor="{StaticResource TextPrimary}"/>
                 <Slider Minimum="1" Maximum="10" Value="{Binding Intensity}" />
-                <Label Text="{Binding Intensity, StringFormat='{0:F0}/10'}" />
+                <Label Text="{Binding Intensity, StringFormat='{0:F0}/10'}" TextColor="{StaticResource TextPrimary}"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="6">
-                <Label Text="Cause probable" />
-                <Editor Text="{Binding ProbableCause}" HeightRequest="100" />
+                <Label Text="Cause probable" TextColor="{StaticResource TextPrimary}"/>
+                <Editor Text="{Binding ProbableCause}" HeightRequest="100" TextColor="{StaticResource TextPrimary}" BackgroundColor="{StaticResource Surface}"/>
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="6">
-                <Label Text="Symptômes avant" />
-                <Entry Text="{Binding SymptomsBefore}" />
+                <Label Text="Symptômes avant" TextColor="{StaticResource TextPrimary}"/>
+                <Entry Text="{Binding SymptomsBefore}" TextColor="{StaticResource TextPrimary}" BackgroundColor="{StaticResource Surface}"/>
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="6">
-                <Label Text="Symptômes pendant" />
-                <Entry Text="{Binding SymptomsDuring}" />
+                <Label Text="Symptômes pendant" TextColor="{StaticResource TextPrimary}"/>
+                <Entry Text="{Binding SymptomsDuring}" TextColor="{StaticResource TextPrimary}" BackgroundColor="{StaticResource Surface}"/>
             </VerticalStackLayout>
             
             <VerticalStackLayout Spacing="6">
-                <Label Text="Notes" />
-                <Editor Text="{Binding Notes}" HeightRequest="100" />
+                <Label Text="Notes" TextColor="{StaticResource TextPrimary}"/>
+                <Editor Text="{Binding Notes}" HeightRequest="100" TextColor="{StaticResource TextPrimary}" BackgroundColor="{StaticResource Surface}"/>
             </VerticalStackLayout>
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">

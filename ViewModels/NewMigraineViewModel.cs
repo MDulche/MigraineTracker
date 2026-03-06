@@ -28,8 +28,8 @@ namespace MigraineTracker.ViewModels
         {
             var migraine = new Migraine
             {
-                StartTime = StartTime,
-                EndTime = EndTime,
+                StartTime = StartDate.Date.Add(StartTimeOfDay),
+                EndTime = HasEndTime ? EndDate.Date.Add(EndTimeOfDay) : null,
                 Intensity = Intensity,
                 CreatedAt = DateTime.Now,
                 ProbableCause = ProbableCause,
@@ -42,12 +42,20 @@ namespace MigraineTracker.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        [ObservableProperty]
+        private bool _hasEndTime = false;
 
         [ObservableProperty]
-        private DateTime _startTime = DateTime.Now;
+        private DateTime _startDate = DateTime.Today;
 
         [ObservableProperty]
-        private DateTime _endTime = DateTime.Now;
+        private TimeSpan _startTimeOfDay = DateTime.Now.TimeOfDay;
+
+        [ObservableProperty]
+        private DateTime _endDate = DateTime.Today;
+
+        [ObservableProperty]
+        private TimeSpan _endTimeOfDay = DateTime.Now.TimeOfDay;
 
         [ObservableProperty]
         private int _intensity = 5;
