@@ -27,6 +27,7 @@ namespace MigraineTracker
             builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddTransient<HistoryViewModel>();
             builder.Services.AddTransient<HistoryPage>();
+            builder.Services.AddTransient<CalendarViewModel>();
             builder.Services.AddTransient<CalendarPage>();
             builder.Services.AddTransient<StatsPage>();
             builder.Services.AddTransient<NewMigraineViewModel>();

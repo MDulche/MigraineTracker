@@ -1,12 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MigraineTracker.ViewModels"
+             xmlns:model="clr-namespace:MigraineTracker.Models"
              x:Class="MigraineTracker.Views.CalendarPage"
-             Title="CalendarPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:DataType="vm:CalendarViewModel"
+             BackgroundColor="#121212"
+             Title="Calendrier">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- Navigation mois -->
+            <Grid ColumnDefinitions="44,*,44" HeightRequest="44">
+                <Button Grid.Column="0" Text="‹" FontSize="24"
+                        BackgroundColor="#1E1E1E" TextColor="#E5E7EB"
+                        CornerRadius="22" WidthRequest="44" HeightRequest="44"
+                        Command="{Binding PreviousMonthCommand}" />
+                <Label Grid.Column="1" Text="{Binding MonthTitle}"
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       FontSize="18" FontAttributes="Bold" TextColor="#E5E7EB" />
+                <Button Grid.Column="2" Text="›" FontSize="24"
+                        BackgroundColor="#1E1E1E" TextColor="#E5E7EB"
+                        CornerRadius="22" WidthRequest="44" HeightRequest="44"
+                        Command="{Binding NextMonthCommand}" />
+            </Grid>
+
+            <!-- En-têtes jours -->
+            <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                <Label Grid.Column="0" Text="L" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="1" Text="M" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="2" Text="M" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="3" Text="J" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="4" Text="V" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="5" Text="S" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+                <Label Grid.Column="6" Text="D" TextColor="#9CA3AF" FontSize="12" HorizontalOptions="Center"/>
+            </Grid>
+
+            <!-- Grille des jours -->
+            <CollectionView ItemsSource="{Binding Days}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="7" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:CalendarDayViewModel">
+                        <Grid Padding="2" HeightRequest="48">
+                            <Border BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                                    Stroke="Transparent"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="0">
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                                    <Label Text="{Binding Day}"
+                                           TextColor="#E5E7EB" FontSize="14"
+                                           HorizontalOptions="Center"
+                                           IsVisible="{Binding Day, Converter={StaticResource IntToBoolConverter}}" />
+                                    <Ellipse Fill="{Binding DotColor}"
+                                             WidthRequest="6" HeightRequest="6"
+                                             HorizontalOptions="Center"
+                                             IsVisible="{Binding HasMigraine}" />
+                                </VerticalStackLayout>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}, Path=SelectDayCommand}"
+                                        CommandParameter="{Binding Day}" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Détail jour sélectionné -->
+            <VerticalStackLayout IsVisible="{Binding SelectedDay, Converter={StaticResource IntToBoolConverter}}" Spacing="8">
+                <Label Text="MIGRAINES CE JOUR" TextColor="#9CA3AF"
+                       FontSize="12" FontAttributes="Bold" CharacterSpacing="1" />
+                <CollectionView ItemsSource="{Binding SelectedDayMigraines}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Migraine">
+                            <Border BackgroundColor="#1E1E1E" Stroke="#27272A"
+                                    StrokeShape="RoundRectangle 12"
+                                    Padding="16" Margin="0,4">
+                                <HorizontalStackLayout Spacing="12">
+                                    <Border BackgroundColor="{Binding Intensity, Converter={StaticResource IntToIntensityColorConverter}}"
+                                        Stroke="{Binding Intensity, Converter={StaticResource IntToIntensityColorConverter}}"
+                                        StrokeShape="RoundRectangle 8"
+                                        Padding="8,4" WidthRequest="40">
+                                        <Label Text="{Binding Intensity}" 
+                                           TextColor="#121212"
+                                           FontSize="16" FontAttributes="Bold"
+                                           HorizontalOptions="Center" />
+                                    </Border>
+
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="{Binding StartTime, StringFormat='{0:HH:mm}'}"
+                                               TextColor="#E5E7EB" FontSize="14" />
+                                        <Label Text="{Binding ProbableCause}"
+                                               TextColor="#9CA3AF" FontSize="12" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
