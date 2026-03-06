@@ -2,11 +2,68 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MigraineTracker.Views.DashboardPage"
-             Title="DashboardPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="">
+    <ScrollView>
+        
+        <VerticalStackLayout Padding="16" Spacing="24">
+            
+            <Label Text="Suivi Migraines" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" />
+            <Label Text="Votre journal de santé" FontSize="16" TextColor="{StaticResource TextSecondary}" />
+            
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+
+                <Border Background="{StaticResource Surface}" StrokeShape="RoundRectangle 16" Stroke="{StaticResource Border}" Padding="12" Grid.Column="0">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Total}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center"/>
+                        <Label Text="Aux total" FontSize="12" TextColor="{StaticResource TextSecondary}" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <Border Background="{StaticResource Surface}" StrokeShape="RoundRectangle 16" Stroke="{StaticResource Border}" Padding="12" Grid.Column="1">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding ThisMonth}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center"/>
+                        <Label Text="Ce mois" FontSize="12" TextColor="{StaticResource TextSecondary}" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <Border Background="{StaticResource Surface}" StrokeShape="RoundRectangle 16" Stroke="{StaticResource Border}" Padding="12" Grid.Column="2">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding AverageIntensity, StringFormat='{0:F1}'}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center"/>
+                        <Label Text="Intensité moy." FontSize="12" TextColor="{StaticResource TextSecondary}" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                
+            </Grid>
+
+            <Button Text="+ Nouvelle migraine"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                FontSize="16"
+                FontAttributes="Bold"
+                CornerRadius="16"
+                HeightRequest="56"
+                Command="{Binding GoToNewMigraineCommand}" />   
+
+            <Label Text="Migraines récentes" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" />
+
+            <CollectionView ItemsSource="{Binding Migraines}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{StaticResource Surface}" StrokeShape="RoundRectangle 12" Stroke="{StaticResource Border}" Padding="16" Margin="0,0,0,8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding StartTime, StringFormat='{0:dd/MM/yyyy}'}" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}"/>
+                                    <Label Text="{Binding DurationDisplay, StringFormat='Durée : {0}h'}" FontSize="13" TextColor="{StaticResource TextSecondary}"/> 
+                                </VerticalStackLayout>
+                                <Label Text="{Binding Intensity, StringFormat='{0}/10'}" Grid.Column="1" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Primary}" VerticalOptions="Center"/>   
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+        
+    </ScrollView>
+    
 </ContentPage>

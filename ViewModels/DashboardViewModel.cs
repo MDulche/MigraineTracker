@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MigraineTracker.Models;
 using MigraineTracker.Services;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 
 
 namespace MigraineTracker.ViewModels
@@ -26,7 +27,6 @@ namespace MigraineTracker.ViewModels
 
         [ObservableProperty]
         private double _averageIntensity;
-
 
         public ObservableCollection<Migraine> Migraines { get; } = new ObservableCollection<Migraine>();
 
@@ -52,6 +52,11 @@ namespace MigraineTracker.ViewModels
             }
         }
 
-        
+        [RelayCommand]
+        private async Task GoToNewMigraine()
+        {
+            await Shell.Current.GoToAsync("NewMigraine");
+        }
+
     }
 }

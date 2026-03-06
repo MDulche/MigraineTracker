@@ -24,6 +24,16 @@ namespace MigraineTracker.Models
         public string SymptomsDuring { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
 
+        public string DurationDisplay
+        {
+            get
+            {
+                if (EndTime == null) return "En cours";
+                var duration = EndTime.Value - StartTime;
+                return $"{(int)duration.TotalHours}h{duration.Minutes:D2}";
+            }
+        }
 
     }
+
 }
