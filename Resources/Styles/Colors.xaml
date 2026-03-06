@@ -25,4 +25,10 @@
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="MidnightBlue">#190649</Color>
 
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <Color x:Key="Gray300">#ADADAD</Color>
+    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray900">#212121</Color>
+
 </ResourceDictionary>
