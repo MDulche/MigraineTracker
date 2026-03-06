@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using MigraineTracker.Services;
+using MigraineTracker.ViewModels;
+using MigraineTracker.Views;
 
 namespace MigraineTracker
 {
@@ -18,6 +21,10 @@ namespace MigraineTracker
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton<DatabaseServices>();
+            builder.Services.AddTransient<DashboardViewModel>();
+            builder.Services.AddTransient<DashboardPage>();
 
             return builder.Build();
         }
