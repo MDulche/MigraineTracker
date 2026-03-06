@@ -53,7 +53,7 @@
                             <Grid ColumnDefinitions="*,Auto">
                                 <VerticalStackLayout Spacing="4">
                                     <Label Text="{Binding StartTime, StringFormat='{0:dd/MM/yyyy}'}" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}"/>
-                                    <Label Text="{Binding DurationDisplay, StringFormat='Durée : {0}h'}" FontSize="13" TextColor="{StaticResource TextSecondary}"/> 
+                                    <Label Text="{Binding DurationDisplay, StringFormat='Durée : {0}'}" FontSize="13" TextColor="{StaticResource TextSecondary}"/> 
                                 </VerticalStackLayout>
                                 <Label Text="{Binding Intensity, StringFormat='{0}/10'}" Grid.Column="1" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Primary}" VerticalOptions="Center"/>   
                             </Grid>

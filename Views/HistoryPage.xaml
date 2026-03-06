@@ -3,10 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MigraineTracker.Views.HistoryPage"
              Title="HistoryPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <CollectionView ItemsSource="{Binding Migraines}" Margin="16">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Border Background="{StaticResource Surface}" StrokeShape="RoundRectangle 12" Stroke="{StaticResource Border}" Padding="16" Margin="0,0,0,8">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding StartTime, StringFormat='{0:dd/MM/yyyy}'}" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}"/>
+                            <Label Text="{Binding DurationDisplay, StringFormat='Durée : {0}'}" FontSize="13" TextColor="{StaticResource TextSecondary}"/>
+                        </VerticalStackLayout>
+                        <Label Text="{Binding Intensity, StringFormat='{0}/10'}" Grid.Column="1" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Primary}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
 </ContentPage>
